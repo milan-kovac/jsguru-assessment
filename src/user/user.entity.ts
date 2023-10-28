@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { Product } from 'src/products/product.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -15,8 +17,12 @@ export class User {
     email: string;
 
     @Column({ type: String })
+    @Exclude()
     password: string;
 
     @Column({ type: String })
     phone: string;
+
+    @OneToMany(() => Product, (product) => product.user)
+    products: Product[];
 }
